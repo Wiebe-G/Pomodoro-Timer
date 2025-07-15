@@ -58,6 +58,8 @@ function updateTimer() {
         Pauze.classList.toggle('fatHeader');
         berekenTimerSeconden()
         isRunning = false;
+        let ping = new Audio('./Sounds/ping.mp3')
+        ping.play();
     }
 }
 
