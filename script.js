@@ -32,9 +32,9 @@ let timerSeconden;// = 1;
 
 function berekenTimerSeconden() {
     if (Focus.classList.contains('fatHeader')) {
-        timerSeconden = 5//25 * 60;
+        timerSeconden = 25 * 60;
     } else {
-        timerSeconden = 3//300;
+        timerSeconden = 300;
     }
     updateTimer()
     return timerSeconden
@@ -60,7 +60,6 @@ function updateTimer() {
         isRunning = false;
     }
 }
-
 
 Focus.addEventListener('click', () => {
     Pauze.classList.remove('fatHeader');
