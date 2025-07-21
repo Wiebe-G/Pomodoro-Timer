@@ -11,13 +11,20 @@
 
 <body>
     <div class="wrapper">
-        <div class="timer"><!-- Zet hier een box met een aflopende timer -->
+        <div class="timer">
             <div class="h1Wrapper">
                 <h1 id="focus" class="fatHeader">Focus</h1>
                 <h1 id="pauze">Pauze</h1>
             </div>
-            <div id="timer"></div>
-            <p id="status"></p>
+            <div class="status-wrapper">
+                <div id="timer"></div>
+                <p id="status"></p>
+            </div>
+            <div class="timer-aanpassen-wrapper">
+                <p>Timer aanpassen (waarde is in seconden)</p>
+                <input type="text" id="focus-tijd">
+                <button id="focus-tijd-knop" class="tijd-knop">Bevestig</button>
+            </div>
         </div>
         <div class="knop">
             <button id="startKnop" class="stopKnop" role="button">Begin timer</button>

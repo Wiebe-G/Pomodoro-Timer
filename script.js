@@ -28,7 +28,7 @@ function stopTimer() {
 };
 
 
-let timerSeconden;// = 1;
+let timerSeconden;
 
 function berekenTimerSeconden() {
     if (Focus.classList.contains('fatHeader')) {
@@ -36,22 +36,22 @@ function berekenTimerSeconden() {
     } else {
         timerSeconden = 300;
     }
-    updateTimer()
-    return timerSeconden
+    updateTimer(timerSeconden)
+    // return timerSeconden
 }
 
 berekenTimerSeconden()
 
-function updateTimer() {
+function updateTimer(tijd) {
     // bereken minuten, seconden, en tijd formatteren
-    const minuten = Math.floor(timerSeconden / 60);
-    const seconden = timerSeconden % 60;
+    const minuten = Math.floor(tijd / 60);
+    const seconden = tijd % 60;
     // minder dan 10 seconden, voeg een nul toe aan het begin
     const geformateerdeTijd = `${minuten}:${seconden < 10 ? '0' : ''}${seconden}`;
     timerPlek.textContent = geformateerdeTijd;
     // 1 seconde minder
-    timerSeconden--;
-    if (timerSeconden < 0) {
+    tijd--;
+    if (tijd < 0) {
         stopTimer()
         statusP.textContent = "Timer is voorbij"
         Focus.classList.toggle('fatHeader');
@@ -73,4 +73,19 @@ Pauze.addEventListener('click', () => {
     Focus.classList.remove('fatHeader');
     Pauze.classList.add('fatHeader');
     berekenTimerSeconden()
+});
+
+// TODO:
+// maak het zodat het de tijd niet vergeet
+const pasTimerAanInput = document.getElementById('focus-tijd');
+const pasTimerAanKnop = document.getElementById('focus-tijd-knop');
+
+pasTimerAanKnop.addEventListener('click', () => {
+    let nieuweTimerTijd = pasTimerAanInput.value;
+    if (!typeof nieuweTimerTijd == 'number') {
+        console.log('oh oh, niet een int')
+    }
+    timerSeconden = nieuweTimerTijd;
+    console.log(`Nieuwe focustijd is: ${timerSeconden}`)
+    updateTimer(timerSeconden)
 });
