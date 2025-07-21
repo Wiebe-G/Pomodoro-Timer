@@ -19,6 +19,27 @@ stopKnop.addEventListener('click', () => {
     stopTimer()
 })
 
+let timerSeconden;
+
+// TODO:
+// maak het zodat het de tijd niet vergeet
+// en dat het niet naar nan gaat hele tijd
+const pasTimerAanInput = document.getElementById('focus-tijd');
+const pasTimerAanKnop = document.getElementById('focus-tijd-knop');
+
+pasTimerAanKnop.addEventListener('click', () => {
+    let nieuweTimerTijd = pasTimerAanInput.value;
+    if (!typeof nieuweTimerTijd == 'number') {
+        console.log('oh oh, niet een int')
+    }
+    timerSeconden = nieuweTimerTijd;
+    console.log(`Nieuwe focustijd is: ${timerSeconden}`)
+    updateTimer(timerSeconden)
+    return (timerSeconden)
+});
+
+
+
 function startTimer() {
     intervalID = setInterval(updateTimer, 1000)
 };
@@ -28,7 +49,6 @@ function stopTimer() {
 };
 
 
-let timerSeconden;
 
 function berekenTimerSeconden() {
     if (Focus.classList.contains('fatHeader')) {
@@ -37,28 +57,27 @@ function berekenTimerSeconden() {
         timerSeconden = 300;
     }
     updateTimer(timerSeconden)
-    // return timerSeconden
 }
 
 berekenTimerSeconden()
 
-function updateTimer(tijd) {
+function updateTimer() {
     // bereken minuten, seconden, en tijd formatteren
-    const minuten = Math.floor(tijd / 60);
-    const seconden = tijd % 60;
+    const minuten = Math.floor(timerSeconden / 60);
+    const seconden = timerSeconden % 60;
     // minder dan 10 seconden, voeg een nul toe aan het begin
     const geformateerdeTijd = `${minuten}:${seconden < 10 ? '0' : ''}${seconden}`;
     timerPlek.textContent = geformateerdeTijd;
     // 1 seconde minder
-    tijd--;
-    if (tijd < 0) {
-        stopTimer()
-        statusP.textContent = "Timer is voorbij"
+    timerSeconden--;
+    if (timerSeconden < 0) {
+        stopTimer();
+        statusP.textContent = "Timer is voorbij";
         Focus.classList.toggle('fatHeader');
         Pauze.classList.toggle('fatHeader');
         berekenTimerSeconden()
         isRunning = false;
-        let ping = new Audio('./Sounds/ping.mp3')
+        let ping = new Audio('./Sounds/ping.mp3');
         ping.play();
     }
 }
@@ -75,17 +94,3 @@ Pauze.addEventListener('click', () => {
     berekenTimerSeconden()
 });
 
-// TODO:
-// maak het zodat het de tijd niet vergeet
-const pasTimerAanInput = document.getElementById('focus-tijd');
-const pasTimerAanKnop = document.getElementById('focus-tijd-knop');
-
-pasTimerAanKnop.addEventListener('click', () => {
-    let nieuweTimerTijd = pasTimerAanInput.value;
-    if (!typeof nieuweTimerTijd == 'number') {
-        console.log('oh oh, niet een int')
-    }
-    timerSeconden = nieuweTimerTijd;
-    console.log(`Nieuwe focustijd is: ${timerSeconden}`)
-    updateTimer(timerSeconden)
-});
