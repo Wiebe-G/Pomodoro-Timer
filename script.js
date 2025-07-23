@@ -11,55 +11,50 @@ let isRunning = false;
 startKnop.addEventListener('click', () => {
     if (isRunning) return; // voorkomen van functie meerdere keren uitvoeren
     isRunning = true;
-    startTimer()
+    startTimer();
 })
 
 stopKnop.addEventListener('click', () => {
     isRunning = false;
-    stopTimer()
+    stopTimer();
 })
 
 let timerSeconden;
 
 // TODO:
 // maak het zodat het de tijd niet vergeet
-// en dat het niet naar nan gaat hele tijd
 const pasTimerAanInput = document.getElementById('focus-tijd');
 const pasTimerAanKnop = document.getElementById('focus-tijd-knop');
 
 pasTimerAanKnop.addEventListener('click', () => {
-    let nieuweTimerTijd = pasTimerAanInput.value;
+    let nieuweTimerTijd = pasTimerAanInput.value * 60;
     if (!typeof nieuweTimerTijd == 'number') {
-        console.log('oh oh, niet een int')
-    }
+        console.log('oh oh, niet een int');
+    };
     timerSeconden = nieuweTimerTijd;
-    console.log(`Nieuwe focustijd is: ${timerSeconden}`)
-    updateTimer(timerSeconden)
-    return (timerSeconden)
+    console.log(`Nieuwe focustijd is: ${timerSeconden}`);
+    updateTimer(timerSeconden);
+    return (timerSeconden);
 });
 
-
-
 function startTimer() {
-    intervalID = setInterval(updateTimer, 1000)
+    intervalID = setInterval(updateTimer, 1000);
 };
 
 function stopTimer() {
     clearInterval(intervalID);
 };
 
-
-
 function berekenTimerSeconden() {
     if (Focus.classList.contains('fatHeader')) {
         timerSeconden = 25 * 60;
     } else {
         timerSeconden = 300;
-    }
-    updateTimer(timerSeconden)
-}
+    };
+    updateTimer(timerSeconden);
+};
 
-berekenTimerSeconden()
+berekenTimerSeconden();
 
 function updateTimer() {
     // bereken minuten, seconden, en tijd formatteren
@@ -79,18 +74,18 @@ function updateTimer() {
         isRunning = false;
         let ping = new Audio('./Sounds/ping.mp3');
         ping.play();
-    }
-}
+    };
+};
 
 Focus.addEventListener('click', () => {
     Pauze.classList.remove('fatHeader');
     Focus.classList.add('fatHeader');
-    berekenTimerSeconden()
+    berekenTimerSeconden();
 });
 
 Pauze.addEventListener('click', () => {
     Focus.classList.remove('fatHeader');
     Pauze.classList.add('fatHeader');
-    berekenTimerSeconden()
+    berekenTimerSeconden();
 });
 
